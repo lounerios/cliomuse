@@ -15,6 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route:: get('/bookings', function() {
-    return view('bookings')
-});
+Route::get('agent/login', 'AgentController@login');
+
+Route::get('booking/view', 'BookingsController@view');

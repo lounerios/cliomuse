@@ -16,6 +16,15 @@
     <body>
         <div class="container">
             <h3>Welcome to the Agent Page</h3>
+
+            @if (count($errors) > 0)
+            <div class = "alert alert-danger">
+                  @foreach ($errors->all() as $error)
+                  {{ $error }}<br>
+                  @endforeach
+            </div>
+            @endif
+      
             @if (session('error'))
             <div class="alert alert-danger" role="alert">
                 {{ session('error') }}

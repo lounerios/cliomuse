@@ -15,10 +15,14 @@ class Booking extends Model
     public $museumBooked;
     public $date;
 
-
     public static function GetBookingByAgentName($agent){
         $bookings = array();
-        $contents = trim(Storage::disk('local')->get('cm_agent_bookings.csv'));
+    
+        if(!Storage::disk('local')->exists('CM-AGENT BOOKINGS.csv')){
+            return $bookings;
+        }
+
+        $contents = trim(Storage::disk('local')->get('CM-AGENT BOOKINGS.csv'));
         $lines = explode(PHP_EOL, $contents);
 
         Log::info("Check for agent ".$agent);

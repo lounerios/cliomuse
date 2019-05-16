@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('agent/login', function() {
+    return view('welcome');
+});
+
 Route::post('agent/login', 'AgentController@login');
 
 Route::get('booking/view', 'BookingsController@view');

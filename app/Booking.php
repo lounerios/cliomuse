@@ -10,6 +10,7 @@ class Booking extends Model
 {
     //fields
     public $id;
+    public $agent;
     public $travelerFullname;
     public $museumBooked;
     public $date;
@@ -17,19 +18,24 @@ class Booking extends Model
 
     public static function GetBookingByAgentName($agent){
         $bookings = array();
-        $contents = str_replace('\r\n','\n', Storage::disk('local')->get('cm_agent_bookings.csv'));
-        $lines = explode('\n', $contents);
+        $contents = trim(Storage::disk('local')->get('cm_agent_bookings.csv'));
+        $lines = explode(PHP_EOL, $contents);
 
-        Log::info($lines);
+        Log::info("Check for agent ".$agent);
 
         foreach($lines as $line) {
-            $fields = explode(',', $line);
+            $fields = explode(',', trim($line)); 
+
+            if(strtoupper($fields[0]) != strtoupper($agent)) {
+                continue;
+            }
+
             $newBooking = new Booking();
             $newBooking->id = $fields[1];
+            $newBooking->agent = $fields[0];
             $newBooking->travelerFullname = $fields[2];
             $newBooking->museumBooked = $fields[3];
             $newBooking->date = $fields[4];
-
             Log::info("Found new booking entry with id ".$fields[1]);
             $bookings[] = $newBooking;
         }

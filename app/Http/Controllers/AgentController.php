@@ -8,7 +8,7 @@ use App\Agent;
 
 class AgentController extends Controller
 {
-    protected $usernames = array('CM-George','CM-John','CM-Maria');
+    protected $usernames = array('CM-GEORGE','CM-JOHN','CM-MARIA');
 
     function login(Request $request){
         Log::info("Try to login");
@@ -21,7 +21,7 @@ class AgentController extends Controller
 
         Log::info("Username:".$username);
 
-        if (!in_array($username, $this->usernames)){
+        if (!in_array(strtoupper($username), $this->usernames)){
             return redirect('/')->with('error', 'The username you have provided is invalid');
         }
        

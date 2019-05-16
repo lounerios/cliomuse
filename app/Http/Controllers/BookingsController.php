@@ -11,7 +11,7 @@ class BookingsController extends Controller
     function view() {
         $agent = session('agent');
 
-        if(strlen($agent) == 0) {
+        if(empty($agent)) {
             return redirect('/');
         }
 
